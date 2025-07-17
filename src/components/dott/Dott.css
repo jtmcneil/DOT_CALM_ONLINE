@@ -1,0 +1,158 @@
+#Dott {
+    #Face {
+        #Eyes {
+            transition: all 0.2s ease-out;
+
+            .eye {
+                width: 2rem;
+            }
+        }
+
+        #Mouth {
+            /* border: 1px solid orange; */
+            height: 2rem;
+        }
+    }
+}
+
+/* Animation Classes */
+
+#Face {
+    &.rollUp {
+        animation: rollUp 7s forwards;
+    }
+    &.reboot1 {
+        transform: translateY(-25%);
+        &::after {
+            content: "REBOOTING.";
+            font-size: 3rem;
+        }
+    }
+    &.reboot2 {
+        transform: translateY(-25%);
+        &::after {
+            content: "REBOOTING..";
+            font-size: 3rem;
+        }
+    }
+    &.reboot3 {
+        transform: translateY(-25%);
+        &::after {
+            content: "REBOOTING...";
+            font-size: 3rem;
+        }
+    }
+}
+
+.eye {
+    &.blink {
+        animation: blink 6s 3s infinite;
+    }
+    &.lookLeft {
+        transform: translate(-3rem, 0.3rem);
+    }
+    &.lookRight {
+        transform: translate(3rem);
+    }
+    &.squint {
+        animation: squint 7s forwards;
+    }
+    &.xEye {
+        background-color: black !important;
+        transform: translateX(-100%);
+
+        &::before {
+            content: "x";
+            font-size: 12rem;
+            text-align: center;
+        }
+    }
+    &.none {
+        display: none;
+    }
+}
+
+#Mouth {
+    &.lookLeft {
+        transform: translate(-1rem);
+    }
+    &.lookRight {
+        transform: translate(1rem, -1rem);
+    }
+    &.yawn {
+        animation: yawn 6s forwards linear;
+    }
+    &.zigZag {
+        --a: 90deg; /* control the angle */
+        --s: 6rem; /* size of the zig-zag */
+        --b: 2rem; /* control the thickness */
+
+        height: calc(var(--b) + var(--s) / (2 * tan(var(--a) / 2))) !important;
+        width: 86% !important;
+        width: 100%;
+        --_g: var(--s) repeat-x
+            conic-gradient(
+                from calc(var(--a) / -2) at bottom,
+                #0000,
+                #000 1deg calc(var(--a) - 1deg),
+                #0000 var(--a)
+            );
+        mask: 50% calc(-1 * var(--b)) / var(--_g) exclude, 50% / var(--_g);
+    }
+    &.none {
+        display: none;
+    }
+}
+
+/* Animations */
+
+@keyframes blink {
+    0%,
+    2%,
+    100% {
+        height: 100%;
+    }
+    1% {
+        height: 0rem;
+    }
+}
+
+@keyframes squint {
+    10% {
+        width: 2rem;
+        height: 1.5rem;
+    }
+    30% {
+        height: 1.5rem;
+        width: 8rem;
+    }
+    80% {
+        height: 1.5rem;
+        width: 8rem;
+    }
+    90% {
+        height: 2rem;
+    }
+}
+
+@keyframes yawn {
+    30% {
+        height: 10rem;
+        width: 90%;
+        border-radius: 2rem;
+    }
+    80% {
+        height: 12rem;
+        width: 90%;
+        border-radius: 2rem;
+    }
+}
+
+@keyframes rollUp {
+    35% {
+        transform: translateY(0);
+    }
+    80% {
+        transform: translateY(-1rem) rotateX(30deg);
+    }
+}
