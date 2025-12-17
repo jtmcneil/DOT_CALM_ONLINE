@@ -20,7 +20,7 @@ export default function RootLayout({
 
     return (
         <html lang="en">
-            <body className="h-screen p-2 bg-black">
+            <body className="bg-black">
                 <Monitor>
                     <Header />
                     <main className="h-full gap-10 py-4">
