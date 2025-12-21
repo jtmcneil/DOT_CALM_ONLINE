@@ -5,6 +5,7 @@ import "./Dott.css";
 import { animations } from "./animations";
 import type { Motion } from "./animations";
 import { BorderBeam } from "../magicui/border-beam";
+import { RetroGrid } from "../magicui/retro-grid";
 
 const ANIMATION_DELAY_MIN = 8;
 const ANIMATION_DELAY_MAX = 12;
@@ -14,9 +15,10 @@ const ANIMATION_DELAY_MAX = 12;
 
 interface DottProps {
     audioEnabled?: boolean;
+    className?: string;
 }
 
-export default function Dott({ audioEnabled }: DottProps) {
+export default function Dott({ audioEnable, className }: DottProps) {
     const [motion, setMotion] = useState<Motion>({
         leftEye: "blink",
         rightEye: "blink",
@@ -63,19 +65,9 @@ export default function Dott({ audioEnabled }: DottProps) {
     }, []);
 
     return (
-        <div className="flex flex-col h-full">
+        <div className={`flex flex-col ${className}`}>
             <div className="flex flex-col justify-center flex-1">
-                <div
-                    id="Dott"
-                    className=" p-10 relative items-center rounded-4xl"
-                >
-                    {" "}
-                    <BorderBeam
-                        duration={8}
-                        size={150}
-                        colorFrom="#5DDF72"
-                        colorTo="#5DDF72"
-                    />
+                <div id="Dott" className=" p-10 relative items-center">
                     <div
                         id="Face"
                         className={`${
@@ -84,18 +76,18 @@ export default function Dott({ audioEnabled }: DottProps) {
                     >
                         <div
                             id="Eyes"
-                            className="h-40 flex gap-25 w-full justify-center items-end"
+                            className="h-40 flex gap-15 w-full justify-center items-end"
                         >
                             <div
                                 id="LeftEye"
-                                className={`eye bg-secondary h-full ${motion.leftEye}`}
+                                className={`eye bg-secondary h-full border border-black ${motion.leftEye}`}
                                 style={{
                                     transition: `all ${motion.t}s ease`,
                                 }}
                             ></div>
                             <div
                                 id="RightEye"
-                                className={`eye bg-secondary h-full ${motion.rightEye}`}
+                                className={`eye bg-secondary h-full border border-black ${motion.rightEye}`}
                                 style={{
                                     transition: `all ${motion.t}s ease`,
                                 }}
@@ -103,7 +95,7 @@ export default function Dott({ audioEnabled }: DottProps) {
                         </div>
                         <div
                             id="Mouth"
-                            className={`bg-secondary ${motion.mouth}`}
+                            className={`bg-secondary border border-black ${motion.mouth}`}
                             style={{ transition: `all ${motion.t}s ease` }}
                         ></div>
                     </div>
