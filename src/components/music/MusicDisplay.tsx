@@ -1,62 +1,85 @@
 import { Music } from "@/types/music";
-import { Button } from "../ui/button";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowBigDown } from "lucide-react";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface MusicDisplayProps {
-    music: Music | null;
+    className?: string;
+    music?: Music;
 }
 
-export default function MusicDisply({ music }: MusicDisplayProps) {
+export default function MusicDisply({ className, music }: MusicDisplayProps) {
+    if (!music) return <></>;
     return (
-        <div className="h-full flex flex-col gap-4">
-            {!music && <UnselectedDisplay />}
-            {music && (
-                <div className="border-secondary border-2 h-full p-2 text-secondary flex flex-col justify-between font-dot">
-                    <div className="flex flex-col gap-4">
-                        <h2 className="text-6xl wrap-anywhere">
-                            {music.title}
-                        </h2>
-                        <h3 className="font-black">
-                            RELEASED {music.releaseDate.toLocaleDateString()}
-                        </h3>
-                        <div className="w-full flex gap-2 items-center">
-                            <span className="flex-1 border-t-2 border-secondary" />
-                            <span className="font-black text-2xl">
-                                {"//////////"}
-                            </span>
-                            <span className="flex-1 border-t-2 border-secondary" />
-                        </div>
-                        <p>{music.description}</p>
+        <div className={`${className} flex-1 flex flex-col min-h-0`}>
+            <h2 className="p-1 bg-secondary">{music.title}</h2>
+            <div className="flex-1 flex md:flex-col">
+                <div className="flex-1 min-h-0 flex flex-col">
+                    <div className="flex-1 relative w-full max-h-full">
+                        <Image
+                            src={music.coverDigital}
+                            alt={`${music.title} cover`}
+                            fill
+                            className="z-10 object-contain"
+                        />
                     </div>
-                    {music.link && (
-                        <div className="flex flex-col gap-2">
-                            <div className="flex">
-                                <ArrowBigDown
-                                    size={64}
-                                    className="text-center w-full"
-                                />
-                                <ArrowBigDown
-                                    size={64}
-                                    className="text-center w-full"
-                                />
-                                <ArrowBigDown
-                                    size={64}
-                                    className="text-center w-full"
+                    <Dialog>
+                        <DialogTrigger className="w-full text-center text-secondary underline md:text-2xl md:py-2">
+                            PRINT
+                        </DialogTrigger>
+                        <DialogContent className="rounded-none w-100 h-140 md:w-120 md:h-170">
+                            <DialogHeader className="text-left">
+                                <DialogTitle className="text-xl font-black">
+                                    {music.title}
+                                </DialogTitle>
+                                <DialogDescription>
+                                    RELEASED{" "}
+                                    {`${music.releaseDate.getMonth()}/${music.releaseDate.getDate()}/${music.releaseDate.getFullYear()}`}
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="relative w-full h-100">
+                                <Image
+                                    src={music.cover}
+                                    alt={`${music.title} cover`}
+                                    fill
+                                    className="z-10 object-contain"
                                 />
                             </div>
-
-                            <Button className="rounded-none bg-secondary font-black text-xl text-foreground">
-                                <Link href={music.link}>LISTEN</Link>
-                            </Button>
-                        </div>
-                    )}
+                        </DialogContent>
+                    </Dialog>
                 </div>
-            )}
+                <div className="bg-secondary z-10 flex flex-col md:flex-row gap-1 md:justify-between md:text-center p-2 text-secondary">
+                    <Link className="bg-black px-1" href={music.links.spotify}>
+                        Spotify
+                    </Link>
+                    <Link
+                        className="bg-black px-1"
+                        href={music.links.appleMusic}
+                    >
+                        Apple Music
+                    </Link>
+                    {music.links.youtube ? (
+                        <Link
+                            className="bg-black px-1"
+                            href={music.links.youtube}
+                        >
+                            Music Video
+                        </Link>
+                    ) : (
+                        <></>
+                    )}
+                    <Link className="bg-black px-1" href={music.links.tooLost}>
+                        More
+                    </Link>
+                </div>
+            </div>
         </div>
     );
-}
-
-function UnselectedDisplay() {
-    return <></>;
 }

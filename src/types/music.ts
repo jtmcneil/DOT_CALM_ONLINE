@@ -1,19 +1,38 @@
+type Links = {
+    tooLost: string;
+    spotify: string;
+    appleMusic: string;
+    youtube?: string;
+};
+
 export type Track = {
     title: string;
-    cover: string;
-    description?: string;
-    releaseDate: Date;
-    link?: string;
     collaborators?: string[];
 };
 
-export type Project = {
-    title: string;
+export type Single = Track & {
+    type: "single";
+    slug: string;
     cover: string;
+    coverDigital: string;
     description?: string;
     releaseDate: Date;
-    link?: string;
-    tracks: Track[];
+    spotify?: string;
+    links: Links;
+    isNew?: boolean;
 };
 
-export type Music = Track | Project;
+export type Project = {
+    type: "project";
+    slug: string;
+    title: string;
+    cover: string;
+    coverDigital: string;
+    description?: string;
+    releaseDate: Date;
+    links: Links;
+    tracks: Track[];
+    isNew?: boolean;
+};
+
+export type Music = Single | Project;

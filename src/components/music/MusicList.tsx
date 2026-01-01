@@ -1,92 +1,138 @@
 "use client";
-import { Music, Project, Track } from "@/types/music";
-import { File, Folder, Tree } from "@/components/magicui/file-tree";
+import Link from "next/link";
+import { Music, Project, Single } from "@/types/music";
+import { DiscAlbum, Play } from "lucide-react";
 
 interface MusicListProps {
+    className?: string;
     music: Music[];
-    selected: Music | null;
-    onSelect: (music: Music) => void;
+    selected: string;
+    onSelect: (slug: string) => void;
 }
 
 export default function MusicList({
+    className,
     music,
     selected,
     onSelect,
 }: MusicListProps) {
     return (
-        <div className="h-full flex flex-col gap-4 border-secondary border-2">
-            <Tree className="">
-                {music.map((item, idx) => {
-                    if ("tracks" in item) {
-                        // It's a Project
-                        return (
-                            <ProjectItem
-                                key={idx}
-                                project={item}
-                                selected={selected?.title === item.title}
-                                onSelect={onSelect}
-                            />
-                        );
-                    } else {
-                        // It's a Track
-                        return (
-                            <TrackItem
-                                key={idx}
-                                track={item}
-                                selected={selected?.title === item.title}
-                                onSelect={onSelect}
-                            />
-                        );
-                    }
-                })}
-            </Tree>
+        <div
+            className={`${className} flex-1 min-h-0 flex flex-col gap-1 border-secondary border-2 p-1 overflow-y-auto`}
+        >
+            {music.map((m) =>
+                m.type == "single" ? (
+                    <SingleItem
+                        key={m.slug}
+                        single={m}
+                        selected={m.slug == selected}
+                        onSelect={onSelect}
+                    />
+                ) : (
+                    <ProjectItem
+                        key={m.slug}
+                        project={m}
+                        selected={m.slug == selected}
+                        onSelect={onSelect}
+                    />
+                )
+            )}
         </div>
     );
 }
 
-interface TrackItemProps {
-    track: Track;
+interface SingleItemProps {
+    single: Single;
     selected: boolean;
-    onSelect?: (track: Track) => void;
+    onSelect: (slug: string) => void;
 }
 
-function TrackItem({ track, selected, onSelect }: TrackItemProps) {
+function SingleItem({ single, selected, onSelect }: SingleItemProps) {
     return (
-        <File
-            value={track.title}
-            className={`font-dot text-md text-secondary font-semibold text-left ${
-                selected && "bg-secondary text-black rounded-none font-black"
+        <div
+            className={`border-2 border-secondary transition-colors duration-150 ease-out ${
+                selected ? "bg-secondary text-black" : "bg-black text-secondary"
             }`}
-            onClick={() => {
-                if (onSelect) {
-                    onSelect(track);
-                }
-            }}
+            onClick={() => onSelect(single.slug)}
         >
-            {track.title}
-        </File>
+            <Link
+                className={"no-underline flex justify-between gap-2"}
+                href={`/music#${single.slug}`}
+            >
+                <div className="flex overflow-hidden text-nowrap gap-2">
+                    <Play />
+                    {single.title}
+                </div>
+                {single.isNew ? (
+                    <span
+                        className={`${
+                            selected
+                                ? "bg-black text-secondary"
+                                : "bg-secondary text-black"
+                        } pl-2 font-black`}
+                    >
+                        NEW!
+                    </span>
+                ) : (
+                    <></>
+                )}
+            </Link>
+        </div>
     );
 }
 
 interface ProjectItemProps {
     project: Project;
     selected: boolean;
-    onSelect: (project: Project) => void;
+    isNew?: boolean;
+    onSelect: (slug: string) => void;
 }
 
 function ProjectItem({ project, selected, onSelect }: ProjectItemProps) {
     return (
-        <Folder
-            value={project.title}
-            element={project.title}
-            className={`font-dot text-md text-secondary font-semibold ${
-                selected && "bg-secondary text-black rounded-none font-black"
+        <div
+            className={`border-2 border-secondary transition-colors duration-150 ease-out ${
+                selected ? "bg-secondary text-black" : "bg-black text-secondary"
             }`}
-            onClick={() => onSelect(project)}
+            onClick={() => onSelect(project.slug)}
         >
-            {project.tracks.map((t) => (
-                <TrackItem key={t.title} selected={false} track={t} />
-            ))}
-        </Folder>
+            <Link
+                className={"no-underline flex justify-between gap-2"}
+                href={`/music#${project.slug}`}
+            >
+                <div className="flex overflow-hidden text-nowrap gap-2">
+                    <DiscAlbum />
+                    {project.title}
+                </div>
+                {project.isNew ? (
+                    <span
+                        className={`${
+                            selected
+                                ? "bg-black text-secondary"
+                                : "bg-secondary text-black"
+                        } pl-2 font-black`}
+                    >
+                        NEW!
+                    </span>
+                ) : (
+                    <></>
+                )}
+            </Link>
+            <ol
+                className={`bg-black text-secondary overflow-hidden transition-all duration-300 ease-out ${
+                    selected ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+                }`}
+            >
+                {project.tracks.map((t) => (
+                    <li
+                        key={t.title}
+                        className="flex overflow-hidden text-nowrap gap-2 pl-5"
+                    >
+                        <Play />
+                        {t.title}
+                    </li>
+                ))}
+            </ol>
+        </div>
     );
 }
