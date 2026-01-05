@@ -16,8 +16,12 @@ export default function MusicLayout({
     const pathname = usePathname().split("/").pop();
 
     const [selected, setSelected] = useState(
-        pathname == "music" && pathname ? music[0].slug : pathname
+        pathname && pathname == "music" ? music[0].slug! : pathname
     );
+
+    if (!selected) {
+        return <>404</>;
+    }
 
     return (
         <div className="flex flex-col h-full min-h-0">
