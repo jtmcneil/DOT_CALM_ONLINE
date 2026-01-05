@@ -44,7 +44,7 @@ export default function BytesSection({ className }: BytesSectionProps) {
         console.log(data);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [data]);
 
     return (
         <section className={`flex flex-col ${className}`}>

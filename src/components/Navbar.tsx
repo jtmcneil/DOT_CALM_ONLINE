@@ -1,23 +1,34 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BorderBeam } from "./magicui/border-beam";
-import { HomeIcon, DiscAlbum, CassetteTape } from "lucide-react";
 
 interface NavLinkProps {
     href: string;
     classname?: string;
     children?: React.ReactNode;
+    external?: boolean;
 }
 
-function NavLink({ href, children }: NavLinkProps) {
-    return (
-        <Link
-            className={`relative inline-block w-15 h-15 transition active:brightness-75 active:scale-95`}
-            href={href}
-        >
-            {children}
-        </Link>
-    );
+function NavLink({ href, external, children }: NavLinkProps) {
+    if (external) {
+        return (
+            <a
+                className={`relative inline-block w-15 h-15 transition active:brightness-75 active:scale-95`}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {children}
+            </a>
+        );
+    } else
+        return (
+            <Link
+                className={`relative inline-block w-15 h-15 transition active:brightness-75 active:scale-95`}
+                href={href}
+            >
+                {children}
+            </Link>
+        );
 }
 
 export default function NavBar() {
@@ -33,7 +44,7 @@ export default function NavBar() {
                 <NavLink href="/visuals">
                     <Image src="/monitor/visuals.png" alt="Visual" fill />
                 </NavLink>
-                <NavLink href="/contact">
+                <NavLink href="mailto:wwwdottcalm@gmail.com" external>
                     <Image src="/monitor/contact.png" alt="Contact" fill />
                 </NavLink>
             </div>

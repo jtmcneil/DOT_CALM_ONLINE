@@ -26,8 +26,9 @@ export async function GET() {
         const body: GetAccountsResponse = { user };
 
         return NextResponse.json(body);
-    } catch (error) {
-        return new InternalServerError("Failed to fetch user data").response;
+    } catch (e) {
+        return new InternalServerError(`Failed to fetch user data: ${e}`)
+            .response;
     }
 }
 
@@ -56,7 +57,8 @@ export async function PUT(req: NextRequest) {
         });
 
         return NextResponse.json({ user });
-    } catch (error) {
-        return new InternalServerError("Failed to update user data").response;
+    } catch (e) {
+        return new InternalServerError(`Failed to update user data: ${e}`)
+            .response;
     }
 }

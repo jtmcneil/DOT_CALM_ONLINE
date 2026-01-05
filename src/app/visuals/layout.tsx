@@ -1,18 +1,18 @@
 "use client";
 
 import { BlurFade } from "@/components/magicui/blur-fade";
-import music from "@/lib/data/music";
+import visuals from "@/lib/data/visuals";
 import Subheader from "@/components/Subheader";
 import { RetroGrid } from "@/components/magicui/retro-grid";
-import MusicList from "@/components/music/MusicList";
 import { useState } from "react";
+import VisualsList from "@/components/visuals/VisualsList";
 
-export default function MusicLayout({
+export default function VisualsLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const [selected, setSelected] = useState(music[0].slug);
+    const [selected, setSelected] = useState(visuals[0].slug);
 
     return (
         <div className="flex flex-col h-full min-h-0">
@@ -52,10 +52,10 @@ export default function MusicLayout({
                             variant="filled"
                             className="w-full mb-2 sticky top-0 shadow-sm shadow-black z-20"
                         >
-                            MUSIC
+                            VISUALS
                         </Subheader>
-                        <MusicList
-                            music={music}
+                        <VisualsList
+                            visuals={visuals}
                             selected={selected}
                             onSelect={setSelected}
                             className=""

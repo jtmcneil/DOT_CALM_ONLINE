@@ -1,6 +1,5 @@
 import { Music } from "@/types/music";
 import Image from "next/image";
-import Link from "next/link";
 import {
     Dialog,
     DialogContent,
@@ -19,7 +18,7 @@ export default function MusicDisply({ className, music }: MusicDisplayProps) {
     if (!music) return <>NO MUSIC SELECTED</>;
     return (
         <div className={`${className} flex-1 flex flex-col min-h-0`}>
-            <h2 className="p-1 bg-secondary">{music.title}</h2>
+            <h2 className="p-1 pl-2 bg-secondary">{music.title}</h2>
             <div className="flex-1 flex md:flex-col">
                 <div className="flex-1 min-h-0 flex flex-col">
                     <div className="flex-1 relative w-full max-h-full">
@@ -70,28 +69,42 @@ export default function MusicDisply({ className, music }: MusicDisplayProps) {
                     </Dialog>
                 </div>
                 <div className="bg-secondary z-10 flex flex-col md:flex-row gap-1 md:justify-between md:text-center p-2 text-secondary">
-                    <Link className="bg-black px-1" href={music.links.spotify}>
+                    <a
+                        className="bg-black px-1"
+                        href={music.links.spotify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         Spotify
-                    </Link>
-                    <Link
+                    </a>
+                    <a
                         className="bg-black px-1"
                         href={music.links.appleMusic}
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         Apple Music
-                    </Link>
+                    </a>
                     {music.links.youtube ? (
-                        <Link
+                        <a
                             className="bg-black px-1"
                             href={music.links.youtube}
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
                             Music Video
-                        </Link>
+                        </a>
                     ) : (
                         <></>
                     )}
-                    <Link className="bg-black px-1" href={music.links.tooLost}>
+                    <a
+                        className="bg-black px-1"
+                        href={music.links.tooLost}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         More
-                    </Link>
+                    </a>
                 </div>
             </div>
         </div>

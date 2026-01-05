@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import "./Dott.css";
 import { animations } from "./animations";
 import type { Motion } from "./animations";
-import { BorderBeam } from "../magicui/border-beam";
-import { RetroGrid } from "../magicui/retro-grid";
 
 const ANIMATION_DELAY_MIN = 8;
 const ANIMATION_DELAY_MAX = 12;
@@ -18,7 +16,7 @@ interface DottProps {
     className?: string;
 }
 
-export default function Dott({ audioEnable, className }: DottProps) {
+export default function Dott({ className }: DottProps) {
     const [motion, setMotion] = useState<Motion>({
         leftEye: "blink",
         rightEye: "blink",
