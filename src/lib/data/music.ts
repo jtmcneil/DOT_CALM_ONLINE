@@ -6,6 +6,7 @@ const music: Music[] = [
         slug: "stopdroproll",
         title: "STOP DROP & ROLL!",
         releaseDate: new Date("2025-07-18T00:00:00.000Z"),
+        // releaseDate: "7/18/2025",
         coverDigital: "/images/stop drop roll cover.gif",
         cover: "/images/stop drop roll cover.jpeg",
         links: {
@@ -22,6 +23,7 @@ const music: Music[] = [
         slug: "godj",
         title: "GO DJ!",
         releaseDate: new Date("2025-06-20T00:00:00.000Z"),
+        // releaseDate: "6/20/2025",
         coverDigital: "/images/go dj cover.gif",
         cover: "/images/go dj cover.jpeg",
         links: {
@@ -80,7 +82,7 @@ const music: Music[] = [
         slug: "backspace",
         title: "backspace",
         releaseDate: new Date("2024-10-24T04:00:00.000Z"),
-        coverDigital: "/images/backspace.gif",
+        coverDigital: "/images/backspace cover.gif",
         cover: "/images/backspace cover.png",
         links: {
             tooLost: "https://too.fm/xgj8a0k",

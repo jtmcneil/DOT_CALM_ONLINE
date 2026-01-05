@@ -16,7 +16,7 @@ interface MusicDisplayProps {
 }
 
 export default function MusicDisply({ className, music }: MusicDisplayProps) {
-    if (!music) return <></>;
+    if (!music) return <>NO MUSIC SELECTED</>;
     return (
         <div className={`${className} flex-1 flex flex-col min-h-0`}>
             <h2 className="p-1 bg-secondary">{music.title}</h2>
@@ -34,23 +34,37 @@ export default function MusicDisply({ className, music }: MusicDisplayProps) {
                         <DialogTrigger className="w-full text-center text-secondary underline md:text-2xl md:py-2">
                             PRINT
                         </DialogTrigger>
-                        <DialogContent className="rounded-none w-100 h-140 md:w-120 md:h-170">
-                            <DialogHeader className="text-left">
-                                <DialogTitle className="text-xl font-black">
-                                    {music.title}
-                                </DialogTitle>
-                                <DialogDescription>
-                                    RELEASED{" "}
-                                    {`${music.releaseDate.getMonth()}/${music.releaseDate.getDate()}/${music.releaseDate.getFullYear()}`}
-                                </DialogDescription>
-                            </DialogHeader>
-                            <div className="relative w-full h-100">
-                                <Image
-                                    src={music.cover}
-                                    alt={`${music.title} cover`}
-                                    fill
-                                    className="z-10 object-contain"
-                                />
+                        <DialogContent
+                            showCloseButton={false}
+                            className="rounded-none w-100 h-140 md:w-120 md:h-170 m-0 p-0"
+                        >
+                            <div className="relative flex flex-col p-5">
+                                <div className="bg-[url(/texture/white-paper-texture.jpg)] absolute w-full h-full z-100 mix-blend-multiply top-0 left-0" />
+                                <DialogHeader className="text-left">
+                                    <DialogTitle className="text-xl font-black">
+                                        {music.title}
+                                    </DialogTitle>
+                                    <DialogDescription className="leading-0">
+                                        RELEASED{" "}
+                                        {music.releaseDate.toLocaleDateString(
+                                            "en-US",
+                                            {
+                                                year: "numeric",
+                                                month: "numeric",
+                                                day: "numeric",
+                                                timeZone: "UTC",
+                                            }
+                                        )}
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="relative w-full h-100 flex-1">
+                                    <Image
+                                        src={music.cover}
+                                        alt={`${music.title} cover`}
+                                        fill
+                                        className="z-10 object-contain"
+                                    />
+                                </div>
                             </div>
                         </DialogContent>
                     </Dialog>

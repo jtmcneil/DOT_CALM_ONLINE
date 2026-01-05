@@ -57,7 +57,7 @@ function SingleItem({ single, selected, onSelect }: SingleItemProps) {
         >
             <Link
                 className={"no-underline flex justify-between gap-2"}
-                href={`/music#${single.slug}`}
+                href={`/music/${single.slug}`}
             >
                 <div className="flex overflow-hidden text-nowrap gap-2">
                     <Play />
@@ -98,7 +98,7 @@ function ProjectItem({ project, selected, onSelect }: ProjectItemProps) {
         >
             <Link
                 className={"no-underline flex justify-between gap-2"}
-                href={`/music#${project.slug}`}
+                href={`/music/${project.slug}`}
             >
                 <div className="flex overflow-hidden text-nowrap gap-2">
                     <DiscAlbum />
