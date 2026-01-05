@@ -46,7 +46,6 @@ export default function Dott({ className }: DottProps) {
                 Math.floor(Math.random() * (span + 1)) + ANIMATION_DELAY_MIN;
             const randomIndex = Math.floor(Math.random() * animations.length);
             const animation = animations[randomIndex];
-            console.log(animation);
 
             await timeout(delay * 1000);
             for (const motion of animation.motions) {

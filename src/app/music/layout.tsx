@@ -6,13 +6,17 @@ import Subheader from "@/components/Subheader";
 import { RetroGrid } from "@/components/magicui/retro-grid";
 import MusicList from "@/components/music/MusicList";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function MusicLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const [selected, setSelected] = useState(music[0].slug);
+    const pathname = usePathname().split("/").pop();
+    const [selected, setSelected] = useState(
+        pathname == "music" ? music[0].slug : pathname
+    );
 
     return (
         <div className="flex flex-col h-full min-h-0">

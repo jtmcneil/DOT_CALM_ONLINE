@@ -41,8 +41,6 @@ export default function BytesSection({ className }: BytesSectionProps) {
             );
         }, 2000);
 
-        console.log(data);
-
         return () => clearInterval(interval);
     }, [data]);
 
