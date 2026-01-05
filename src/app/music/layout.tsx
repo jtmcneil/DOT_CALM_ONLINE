@@ -14,8 +14,9 @@ export default function MusicLayout({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname().split("/").pop();
+
     const [selected, setSelected] = useState(
-        pathname == "music" ? music[0].slug : pathname
+        pathname == "music" && pathname ? music[0].slug : pathname
     );
 
     return (
